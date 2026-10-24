@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Energy Meter Dashboard</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOGIN PAGE
+========================================================= -->
+
+<section id="loginPage"
+         class="d-flex align-items-center justify-content-center min-vh-100 bg-dark">
+
+    <div class="card shadow-lg border-0"
+         style="width:420px;max-width:92%;border-radius:18px;">
+
+        <div class="card-body p-4 p-md-5">
+
+
+            <!-- LOGO / TITLE -->
+
+            <div class="text-center mb-4">
+
+                <div class="mb-3">
+
+                    <i class="bi bi-lightning-charge-fill text-primary"
+                       style="font-size:48px;"></i>
+
+                </div>
+
+
+                <h2 class="fw-bold mb-2">
+                    Smart Energy Meter
+                </h2>
+
+
+                <p class="text-muted mb-0">
+                    Login untuk mengakses dashboard monitoring
+                </p>
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="mb-3">
+
+                    <label
+                        for="loginEmail"
+                        class="form-label fw-semibold">
+
+                        Email
+
+                    </label>
+
+
+                    <input
+                        type="email"
+                        class="form-control form-control-lg"
+                        id="loginEmail"
+                        placeholder="Masukkan email"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="mb-3">
+
+                    <label
+                        for="loginPassword"
+                        class="form-label fw-semibold">
+
+                        Password
+
+                    </label>
+
+
+                    <div class="input-group">
+
+                        <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            id="loginPassword"
+                            placeholder="Masukkan password"
+                            autocomplete="current-password"
+                            required>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            id="togglePassword">
+
+                            <i class="bi bi-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN ERROR -->
+
+                <div
+                    id="loginError"
+                    class="alert alert-danger d-none"
+                    role="alert">
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="btn btn-primary btn-lg w-100">
+
+                    <i class="bi bi-box-arrow-in-right"></i>
+
+                    Login
+
+                </button>
+
+            </form>
+
+
+            <div class="text-center mt-4">
+
+                <small class="text-muted">
+                    Firebase Authentication
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div id="appContent" class="d-none">
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+    <div class="container-fluid px-4">
+
+
+        <!-- BRAND -->
+
+        <a
+            class="navbar-brand"
+            href="#"
+            onclick="showPage('dashboardPage'); return false;">
+
+            <i class="bi bi-lightning-charge-fill"></i>
+
+            Smart Energy Meter
+
+        </a>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
+
+
+            <!-- MENU -->
+
+            <ul class="navbar-nav ms-auto">
+
+
+                <!-- DASHBOARD -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="#"
+                        onclick="showPage('dashboardPage'); return false;">
+
+                        <i class="bi bi-speedometer2"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <!-- MONITORING -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showPage('monitoringPage'); return false;">
+
+                        <i class="bi bi-activity"></i>
+
+                        Monitoring
+
+                    </a>
+
+                </li>
+
+
+                <!-- HISTORY -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showPage('historyPage'); return false;">
+
+                        <i class="bi bi-clock-history"></i>
+
+                        Riwayat
+
+                    </a>
+
+                </li>
+
+
+                <!-- STATISTICS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showPage('statisticsPage'); return false;">
+
+                        <i class="bi bi-bar-chart"></i>
+
+                        Statistik
+
+                    </a>
+
+                </li>
+
+
+                <!-- SETTING -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showPage('settingPage'); return false;">
+
+                        <i class="bi bi-gear"></i>
+
+                        Pengaturan
+
+                    </a>
+
+                </li>
+
+
+                <!-- NOTIFICATION -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showPage('notificationPage'); return false;">
+
+                        <i class="bi bi-bell"></i>
+
+                        Notifikasi
+
+                    </a>
+
+                </li>
+
+
+                <!-- INFO -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showPage('infoPage'); return false;">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Info Sistem
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+
+            <!-- USER + LOGOUT -->
+
+            <div
+                class="d-flex align-items-center gap-3 mt-3 mt-lg-0 ms-lg-3">
+
+                <span
+                    id="firebaseUserEmail"
+                    class="text-light small">
+                </span>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-light btn-sm"
+                    onclick="logout()">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="dashboard-wrapper">
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section
+    id="dashboardPage"
+    class="page">
+
+
+    <div class="container">
+
+
+        <!-- TITLE -->
+
+        <div class="text-center mb-4">
+
+            <h3>
+                Dashboard Monitoring Energi Listrik
+            </h3>
+
+            <p class="text-muted">
+                Monitoring konsumsi listrik secara real-time
+            </p>
+
+        </div>
+
+
+        <!-- DATE / TIME -->
+
+        <div class="row mb-4">
+
+            <div class="col-md-6">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>Tanggal</h6>
+
+                        <h2 id="tanggal">
+                            -
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>Waktu</h6>
+
+                        <h2 id="jam">
+                            -
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FIREBASE STATUS -->
+
+        <div class="text-end mb-3">
+
+            <span
+                id="statusFirebase"
+                class="badge bg-secondary">
+
+                Checking...
+
+            </span>
+
+        </div>
+
+
+
+        <!-- SENSOR CARDS -->
+
+        <div class="row">
+
+
+            <!-- VOLTAGE -->
+
+            <div class="col-md-3">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>
+                            <i class="bi bi-lightning-charge"></i>
+                            Tegangan
+                        </h6>
+
+                        <h2>
+
+                            <span id="voltage">
+                                0.00
+                            </span>
+
+                            <small>V</small>
+
+                        </h2>
+
+                        <p>
+                            Voltage
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CURRENT -->
+
+            <div class="col-md-3">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>
+                            <i class="bi bi-activity"></i>
+                            Arus
+                        </h6>
+
+                        <h2>
+
+                            <span id="current">
+                                0.00
+                            </span>
+
+                            <small>A</small>
+
+                        </h2>
+
+                        <p>
+                            Current
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- POWER -->
+
+            <div class="col-md-3">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>
+                            <i class="bi bi-lightning"></i>
+                            Daya
+                        </h6>
+
+                        <h2>
+
+                            <span id="power">
+                                0.00
+                            </span>
+
+                            <small>W</small>
+
+                        </h2>
+
+                        <p>
+                            Power
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ENERGY -->
+
+            
+<!-- ENERGY: KWH ONLY -->
+<div class="col-md-3">
+    <div class="card">
+        <div class="box">
+            <h6>
+                <i class="bi bi-battery-charging"></i>
+                Energi
+            </h6>
+
+            <h2>
+                <span id="energy">0.000</span>
+                <small>kWh</small>
+            </h2>
+
+            <p>Konsumsi energi listrik</p>
+        </div>
+    </div>
+</div>
+
+
+
+        <!-- POWER GRAPH -->
+
+        <div class="card mt-4">
+
+            <div class="card-header">
+
+                <i class="bi bi-graph-up"></i>
+
+                Grafik Daya Real-Time
+
+            </div>
+
+
+            <div class="card-body">
+
+                <canvas id="powerChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SYSTEM STATUS -->
+
+        <div class="card mt-4">
+
+            <div class="card-header">
+
+                <i class="bi bi-cpu"></i>
+
+                Status Sistem
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Komponen
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    ESP32
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        id="espStatus"
+                                        class="badge bg-secondary">
+
+                                        Checking...
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    PZEM-004T
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        id="pzemStatus"
+                                        class="badge bg-secondary">
+
+                                        Checking...
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Firebase
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        id="firebaseStatus"
+                                        class="badge bg-secondary">
+
+                                        Checking...
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Pembaruan Terakhir
+                                </td>
+
+                                <td>
+
+                                    <span id="lastUpdate">
+                                        -
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ALERT -->
+
+        <div
+            id="dashboardAlert"
+            class="alert alert-warning d-none mt-4">
+
+            <h5 id="dashboardAlertTitle">
+                Peringatan
+            </h5>
+
+            <p
+                id="dashboardAlertText"
+                class="mb-0">
+
+                -
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MONITORING
+========================================================= -->
+
+<section
+    id="monitoringPage"
+    class="page d-none">
+
+    <div class="container">
+
+
+        <h3>
+            Monitoring Real-Time
+        </h3>
+
+
+        <p class="text-muted">
+            Grafik parameter listrik berdasarkan data terbaru
+            dari PZEM-004T.
+        </p>
+
+
+        <!-- VOLTAGE -->
+
+        <div class="card mb-4">
+
+            <div class="card-header">
+                Tegangan
+            </div>
+
+            <div class="card-body">
+
+                <h4>
+                    <span id="monitorVoltage">
+                        0.00
+                    </span>
+                    V
+                </h4>
+
+                <canvas id="voltageChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CURRENT -->
+
+        <div class="card mb-4">
+
+            <div class="card-header">
+                Arus
+            </div>
+
+            <div class="card-body">
+
+                <h4>
+
+                    <span id="monitorCurrent">
+                        0.00
+                    </span>
+
+                    A
+
+                </h4>
+
+                <canvas id="currentChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- POWER -->
+
+        <div class="card mb-4">
+
+            <div class="card-header">
+                Daya
+            </div>
+
+            <div class="card-body">
+
+                <h4>
+
+                    <span id="monitorPower">
+                        0.00
+                    </span>
+
+                    W
+
+                </h4>
+
+                <canvas id="monitorPowerChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ENERGY -->
+
+        
+<!-- ENERGY -->
+<div class="card mb-4">
+    <div class="card-header">
+        Energi
+    </div>
+
+    <div class="card-body">
+        <h4>
+            <span id="monitorEnergy">0.000</span>
+            kWh
+        </h4>
+
+        <canvas id="energyChart"></canvas>
+    </div>
+</div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HISTORY
+========================================================= -->
+
+<section
+    id="historyPage"
+    class="page d-none">
+
+    <div class="container">
+
+
+        <div
+            class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+
+                <h3>
+                    Riwayat Data
+                </h3>
+
+                <p class="text-muted">
+                    Data historis hasil pengukuran sistem.
+                </p>
+
+            </div>
+
+
+            <button
+                class="btn btn-success"
+                onclick="exportHistoryCSV()">
+
+                <i class="bi bi-download"></i>
+
+                Export CSV
+
+            </button>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-striped">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Waktu
+                        </th>
+
+                        <th>
+                            Tegangan (V)
+                        </th>
+
+                        <th>
+                            Arus (A)
+                        </th>
+
+                        <th>
+                            Daya (W)
+                        </th>
+
+                        <th>
+                            Energi (Wh)
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="historyTable">
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="text-muted">
+
+                            Belum ada data riwayat.
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     STATISTICS
+========================================================= -->
+
+<section
+    id="statisticsPage"
+    class="page d-none">
+
+    <div class="container">
+
+
+        <h3>
+            Statistik Konsumsi Listrik
+        </h3>
+
+
+        <p class="text-muted">
+            Statistik daya berdasarkan data yang diterima
+            selama halaman aktif.
+        </p>
+
+
+        <div class="row">
+
+
+            <!-- AVERAGE -->
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>
+                            Rata-rata Daya
+                        </h6>
+
+                        <h2>
+
+                            <span id="avgPower">
+                                0.00
+                            </span>
+
+                            <small>W</small>
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MAX -->
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>
+                            Daya Maksimum
+                        </h6>
+
+                        <h2>
+
+                            <span id="maxPower">
+                                0.00
+                            </span>
+
+                            <small>W</small>
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MIN -->
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="box">
+
+                        <h6>
+                            Daya Minimum
+                        </h6>
+
+                        <h2>
+
+                            <span id="minPower">
+                                0.00
+                            </span>
+
+                            <small>W</small>
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card mt-4">
+
+            <div class="card-body text-center">
+
+                <h5>
+                    Jumlah Sampel
+                </h5>
+
+                <h2>
+
+                    <span id="sampleCount">
+                        0
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SETTING
+========================================================= -->
+
+<section
+    id="settingPage"
+    class="page d-none">
+
+    <div class="container">
+
+
+        <h3>
+            Pengaturan
+        </h3>
+
+
+        <p class="text-muted">
+            Pengaturan batas daya untuk memberikan peringatan
+            ketika konsumsi listrik melebihi nilai yang ditentukan.
+        </p>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                Batas Daya
+            </div>
+
+
+            <div class="card-body">
+
+                <label
+                    for="inputBatas"
+                    class="form-label">
+
+                    Batas Daya Maksimum (W)
+
+                </label>
+
+
+                <div class="input-group mb-3">
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="inputBatas"
+                        placeholder="Contoh: 900"
+                        min="0"
+                        step="1">
+
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="simpanBatas()">
+
+                        Simpan
+
+                    </button>
+
+                </div>
+
+
+                <div class="alert alert-info">
+
+                    Batas aktif:
+
+                    <strong>
+
+                        <span id="batasAktif">
+                            -
+
+                        </span>
+
+                        W
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NOTIFICATION
+========================================================= -->
+
+<section
+    id="notificationPage"
+    class="page d-none">
+
+    <div class="container">
+
+
+        <h3>
+            Notifikasi
+        </h3>
+
+
+        <div
+            id="alertBox"
+            class="alert alert-success">
+
+            <h4 id="alertTitle">
+                Kondisi Normal
+            </h4>
+
+
+            <p
+                id="alertMessage"
+                class="mb-2">
+
+                Konsumsi daya berada di bawah batas yang ditentukan.
+
+            </p>
+
+
+            <p class="mb-0">
+
+                Batas daya:
+
+                <strong>
+
+                    <span id="alertLimit">
+                        -
+
+                    </span>
+
+                    W
+
+                </strong>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INFO SYSTEM
+========================================================= -->
+
+<section
+    id="infoPage"
+    class="page d-none">
+
+    <div class="container">
+
+
+        <h3>
+            Informasi Sistem
+        </h3>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                Smart Energy Meter
+            </div>
+
+
+            <div class="card-body">
+
+
+                <p>
+
+                    Sistem Smart Energy Meter digunakan untuk
+                    melakukan monitoring konsumsi listrik secara
+                    real-time menggunakan teknologi Internet of
+                    Things (IoT).
+
+                </p>
+
+
+                <h5>
+                    Komponen Sistem
+                </h5>
+
+
+                <ul>
+
+                    <li>
+                        ESP32 sebagai mikrokontroler.
+                    </li>
+
+                    <li>
+                        PZEM-004T sebagai sensor pengukuran listrik.
+                    </li>
+
+                    <li>
+                        Wi-Fi sebagai media komunikasi.
+                    </li>
+
+                    <li>
+                        Firebase Realtime Database sebagai media
+                        penyimpanan data.
+                    </li>
+
+                    <li>
+                        Dashboard berbasis web sebagai media
+                        visualisasi.
+                    </li>
+
+                </ul>
+
+
+                <h5 class="mt-4">
+                    Parameter yang Dipantau
+                </h5>
+
+
+                <ul>
+
+                    <li>
+                        Tegangan (V)
+                    </li>
+
+                    <li>
+                        Arus (A)
+                    </li>
+
+                    <li>
+                        Daya (W)
+                    </li>
+
+                    <li>
+                        Energi (Wh)
+                    </li>
+
+                </ul>
+
+
+                <h5 class="mt-4">
+                    Alur Sistem
+                </h5>
+
+
+                <p>
+
+                    Beban Listrik →
+
+                    PZEM-004T →
+
+                    ESP32 →
+
+                    Wi-Fi →
+
+                    Firebase Realtime Database →
+
+                    Dashboard Monitoring
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+</div>
+<!-- END APPLICATION CONTENT -->
+
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js">
+</script>
+
+
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js">
+</script>
+
+
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js">
+</script>
+
+
+
+<!-- =========================================================
+     CHART.JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<!-- =========================================================
+     MAIN JAVASCRIPT
+========================================================= -->
+
+<script src="js/script.js"></script>
+
+
+</body>
+
+</html>
